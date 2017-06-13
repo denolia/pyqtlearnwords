@@ -1,9 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
-from app.ui.mainwindow_ui import Ui_MainWindow
+from app.ui.ui_mainwindow import Ui_MainWindow
 from app.ui.manager import Manager
-from app.ui.table.tabledata import TableData
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -15,8 +14,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     mainwindow = MainWindow()
-    table_data = TableData()
-    manager = Manager(mainwindow, table_data)
+    manager = Manager(mainwindow)
     manager.setup()
     mainwindow.show()
     app.exec_()
