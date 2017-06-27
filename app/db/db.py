@@ -6,14 +6,19 @@ import psycopg2
 log = logging.getLogger(__name__)
 
 
-conn = psycopg2.connect(dbname='learnwords_db', user='learnwords', host='192.168.1.64', password='learnwords')
-conn.autocommit = True
+cur = None
 
-log.info("Connection with database established: {}".format(conn))
-cur = conn.cursor()
-cur.execute('SELECT version()')
-ver = cur.fetchone()
-log.info("Using version: {}".format(ver))
+
+def connect_db():
+    conn = psycopg2.connect(dbname='learnwords_db', user='learnwords', host='192.168.1.64', password='learnwords')
+    conn.autocommit = True
+
+    log.debug("Connection with database established: {}".format(conn))
+    global cur
+    cur = conn.cursor()
+    cur.execute('SELECT version()')
+    ver = cur.fetchone()
+    log.debug("Using version: {}".format(ver))
 
 
 def get_headers():

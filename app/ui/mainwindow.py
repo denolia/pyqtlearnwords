@@ -1,12 +1,16 @@
 import sys
 
+import logging
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
+from app.db.db import connect_db
 from app.ui.manager import Manager
 from app.ui.ui_mainwindow import Ui_MainWindow
-from app.utils import log_conf
+from app.utils.log_conf import configure_logging
 
-log = log_conf.get_logger(__name__)
+log = logging.getLogger(__name__)
+
+configure_logging()
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -16,6 +20,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
 if __name__ == '__main__':
+    connect_db()
     app = QApplication(sys.argv)
     mainwindow = MainWindow()
     manager = Manager(mainwindow)
