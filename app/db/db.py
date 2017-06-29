@@ -3,6 +3,8 @@ from pprint import pformat
 
 import psycopg2
 
+from app.config.config import read_config
+
 log = logging.getLogger(__name__)
 
 
@@ -10,7 +12,12 @@ cur = None
 
 
 def connect_db():
-    conn = psycopg2.connect(dbname='learnwords_db', user='learnwords', host='192.168.1.64', password='learnwords')
+    cfg = read_config('db')
+    name = cfg['name']
+    user = cfg['user']
+    host = cfg['host']
+    password = cfg['passwd']
+    conn = psycopg2.connect(dbname=name, user=user, host=host, password=password)
     conn.autocommit = True
 
     log.debug("Connection with database established: {}".format(conn))
@@ -31,7 +38,7 @@ def get_headers():
 def get_words_by_user(username):
     cur.execute("SELECT * FROM words WHERE username=%s", (username,))
     response = cur.fetchall()
-    log.info("words for user: \n{}".format(pformat(response)))
+    log.info("len of words for user: {}".format(len(response)))
     return response
 
 
