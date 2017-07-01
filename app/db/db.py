@@ -42,5 +42,11 @@ def get_words_by_user(username):
     return response
 
 
-if __name__ == '__main__':
-    get_words_by_user("julia_vikulina")
+def get_tables_list():
+    cur.execute("SELECT table_name FROM information_schema.tables "
+                "WHERE table_type = 'BASE TABLE' "
+                "AND table_schema = 'public' "
+                "ORDER BY table_type, table_name")
+    response = cur.fetchall()
+    log.debug("Fetched tables: {}".format(response))
+    return response
