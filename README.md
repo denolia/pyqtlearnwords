@@ -1,2 +1,3 @@
 # pyqtlearnwords
-An interface to learn words DB. Desktop app wih PyQT for table state monitoring
+An interface to [learn words bot](https://github.com/denolia/learnwords) database. 
+Desktop app for table state monitoring
